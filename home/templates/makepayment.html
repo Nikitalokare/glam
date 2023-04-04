@@ -1,0 +1,32 @@
+{%extends "home.html"%}
+
+{%block "content"%}
+
+<h1>Make Payment!!</h1>
+
+<form method="post"> 
+    {%csrf_token%}
+<table class="table">
+    <tr><td>Enter Card Number</td>        
+         <td><input type="text" name="card_no"
+             class="form-control"/></td></tr>
+    <tr><td>Enter CVV Number</td>        
+            <td><input type="text" name="cvv" 
+                class="form-control"/></td></tr>
+    <tr><td>Enter Expiry </td>
+        <td><input type="text" name="expiry" 
+            class="form-control"/></td></tr>
+    </tr>
+       <tr><td><button class="button btn-success" type="submit">Make Payment</button>
+        </td>
+        <h6>{% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{message}}
+              </div>
+              {% endfor %}
+            {% endif %}</h6>  
+</table>
+</form>
+{%endblock%}

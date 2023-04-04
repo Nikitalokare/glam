@@ -1,0 +1,85 @@
+{%extends "home.html"%}
+
+{%block "content"%}
+{%load static%}
+<script type="text/javascript">
+    function increment(data)
+    {
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num<5)
+        {
+            num+=1;        
+        }
+        result.value =  num;
+    }
+
+    function decrement(data)
+    {
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num>1)
+        {
+            num-=1;
+        }        
+        result.value =  num;
+    }
+    </script>
+<table>
+    <br>
+    <h4>Welcome {{request.session.username}}</h4>
+    <br>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> 
+        {{message}}
+      </div>
+      {%endfor%}
+    {% endif %}
+    <thead>
+    <tr>
+
+        <th >Product Image</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>SubTotal</th>
+    </tr></thead>
+   {%for item in items%} 
+   
+        <tr>
+            <form method="post">
+                {%csrf_token%}
+                <input type="hidden" name="cart_id" value="{{item.id}}"/>
+            <td width="20%"><img src="{{item.product.product_img.url}}" style="height:90px;width:90px" alt="Image not found"></td>
+            <td width="20%">{{item.product.product_name}}</td>
+            
+            <td width="20%"><button type="button" class="button"
+                onclick="decrement('qunt{{item.product.id}}')">-</button>
+               <input type="text" id="qunt{{item.product.id}}" name="qunt" value="{{item.qunt}}" readonly/>
+               <button type="button" class="button" 
+                onclick="increment('qunt{{item.product.id}}')">+</button></td>
+            <td width="20%">{{item.product.product_price}}</td>
+            <td>{%widthratio item.product.product_price 1 item.qunt%}</td>
+            <td><button type="submit" name="action" value="update">
+                <img class="d-block w-100" src="{% static 'images/lip/ultra matte shades/update2.jpg' %}" alt="not found">
+            </button>
+                <button type="submit" name="action" value="remove">
+                    <img class="d-block w-100" src="{% static 'images/lip/ultra matte shades/delete1.jpg' %}" alt="not found">
+                </button></td>
+            </form>
+        </tr>
+       
+   {%endfor%}
+   <tr>
+    <td colspan="4" align="center"><b> Total:</b></td>
+    <td><b> {{request.session.total}} </b></td>
+</tr>
+</table>
+<hr/>
+<br>
+   <center><a href="/makepayment"><button>Proceed to Make Payment</button></a></center>
+   <br><br>
+{%endblock%}

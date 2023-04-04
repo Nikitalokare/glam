@@ -1,0 +1,50 @@
+{%extends "home.html"%}
+{%block "content"%}
+{%load static%}
+<section style="background-color: rgb(215, 219, 223); height: 20%;">
+    <center><h3>Welcome to Glam Beauty</h3></center></section>
+    <div  style="align-items: center;">
+        
+        <br>
+
+    <br><p><center>
+    <b><h5> Unfortunetly !! Currently No Opeing!!</h5></b>
+    <br>
+    We apperciate your interest
+    please drop your resume our team will contact you soon!!!</center>
+</p>
+<form action="{% url 'career' %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+<table>
+    <tr>
+        <td><div class="form-group">
+            <label>please Upload your Resume here:-</label>
+            {{form.file_name}}</td>
+        </div>
+        <tr><td><button class="button btn-success" type="submit">submit</button>
+    </tr>
+</table>
+</form>
+<h5>{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> 
+        {{message}}
+      </div>
+      {% endfor %}
+    {% endif %}</h5>
+<center><svg height="90" width="100">
+    <text fill="#CD5888" font-size="45" font-family="Brush Script MT"
+    x="20" y="56">Glam</text>
+  Sorry, your browser does not support inline SVG.
+  </svg></center>
+<center><b> WE SIMPLIFY THE BEAUTY </b></center></div></div></div><br><br>
+<section>
+
+    <center><h4>Contact us </h4>
+        <ul><b><address>Wagle Estate, 400604, Thane(w)</address></b></ul>
+    <ul><b> Contact Us:</b> 9820169828</ul>
+    <ul><b>Email us:</b> glambeauty@gmail.com</ul></center>
+</section>
+{%endblock%}

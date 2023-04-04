@@ -1,0 +1,464 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Welcome to Glam Beauty </title>
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">--> 
+    
+</head>
+<style>
+.carousel .item  {
+  height: 300px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
+}
+.carousel-item{
+  height: 450px;
+  background-color: #000000;
+}
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.card {
+  margin: 0 0.5em;
+  box-shadow: 1px 3px 4px 0 rgba(22, 22, 26, 0.18);
+  border: 1;
+  border-radius: 0;
+}
+.carousel-inner {
+  padding: 1em;
+}
+.topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+</style>
+
+<body>
+  <section class="header">
+    
+    <div class="container-fluid">
+    <center>FLAT Rs.100 OFF on your first order</center>
+  </div>
+  </section>
+  
+  <section class="logo">
+    <div class="container-fluid">
+      <ul class="nav nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8000/" style="color: #000000">
+    <svg height="70" width="150">
+      <text fill="#CD5888" font-size="45" font-family="Brush Script MT"
+      x="20" y="43">Glam</text>
+    Sorry, your browser does not support inline SVG.
+    </svg></a></li>
+    <li class="nav-item">
+      <li class="dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#" style="color: #000000"> Brands <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        {%for cat in brand%}
+        
+              <li><a href="/showbrandproduct/{{cat.id}}">{{cat.brand_name}}</a></li> 
+        
+        
+        {%endfor%}
+        
+       </ul>
+          </li>
+          
+          <li><form class="form-inline my-2 my-lg-0" method="post" action="/search">
+            {%csrf_token%}
+         <input class="form-control mr-sm-2" type="search" id="Search" name="Search" placeholder="Search at Glam" aria-label="Search">
+         <button class="btn btn-outline-light my-2 my-sm-0 " style="background-color: #c77393;" type="submit">Search</button>
+       </form></li>
+    </li></div>
+        
+        
+          
+    {%if "username" in request.session%}
+    <div class="dropdown">
+      <button type="button" class="btn btn-outline-light dropdown-toggle" style="background-color: #c77393;" data-toggle="dropdown">
+        My Account
+      </button>
+      <div class="dropdown-menu">
+        <a class="nav-link" href="/myorder" style="color: #000000"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a>
+          <a class="nav-link" href="/viewCart" style="color: #000000"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+          <a class="nav-link" href="/SignOut" style="color: #000000"><span class="glyphicon glyphicon-user"></span> SignOut </a>
+      </div>
+    </div>
+             
+          {%else%}
+
+        <li class="nav-item " style="list-style-type: none;"><a class="nav-link" href="/login" style="color: #000000"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+        <li class="nav-item " style="list-style-type: none;"><a class="nav-link" href="/SignUp" style="color: #000000; align-items: right;"><span class="glyphicon glyphicon-user"></span> SignUp </a></li>
+        
+      
+      {%endif%}
+    
+    
+  </section>
+  <section class="header">
+    <div class="container-fluid">
+        <ul class="nav nav">
+          <li class="nav-item">
+            <li class="dropdown">
+            <a  class="nav-link active" data-toggle="dropdown" href="#" style="color: #000000">Skin Care <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              
+              <li><b>Moistrurizer & Cream</b></li>
+              {%for cat in cats%}
+              {% if cat.category|stringformat:'s' == 'Skin' %}
+              {%if cat.product_cate_name|stringformat:'s' == 'All Purpose Gel' %}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li> 
+              <br> 
+              <li><b>cleanser</b></li>
+              {%elif cat.product_cate_name|stringformat:'s' == 'Scrubs' %}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li> 
+              <br> 
+              <li><b>Masks</b></li>
+              {%elif cat.product_cate_name|stringformat:'s' == 'Face Packs' %}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li> 
+              <br> 
+              <li><b>Toner</b></li>
+              {%else%}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li>
+              {%endif%}
+              
+              {%endif%}
+              {%endfor%} </ul></li>
+          </li>
+          <li class="nav-item">
+            <li class="dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" style="color: #000000">Lips <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><b>Lip Makeup</b></li>
+              {%for cat in cats%}
+              {% if cat.category|stringformat:'s' == 'Lips' %}
+              {%if cat.product_cate_name|stringformat:'s' == 'Lipstick' %}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li> 
+              <br> 
+              <li><b>Lip Care</b></li>
+              
+              {%else%}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li>
+              {%endif%}
+              
+              {%endif%}
+              {%endfor%}  </ul></li>
+          </li>
+          <li class="nav-item">
+            <li class="dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#" style="color: #000000">Eyes <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><b>Eye Makeup</b></li>
+              {%for cat in cats%}
+              {% if cat.category|stringformat:'s' == 'Eyes' %}
+              {%if cat.product_cate_name|stringformat:'s' == 'Eyebrows' %}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li> 
+              
+              
+              {%else%}
+              <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li>
+              {%endif%}
+              
+              {%endif%}
+              {%endfor%}  </ul></li>
+          </li>
+          <li class="nav-item">
+            <li class="dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#" style="color: #000000">Face <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><b>Face Makeup</b></li>
+                {%for cat in cats%}
+                {% if cat.category|stringformat:'s' == 'Face' %}
+                  <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li>
+                {%endif%}
+                {%endfor%} </ul></li>
+          </li>
+          <li class="nav-item">
+            <li class="dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#" style="color: #000000">Makeup-tools <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                {%for cat in cats%}
+                {% if cat.category|stringformat:'s' == 'Makeup & Hairs Tools' %}
+                {%if cat.product_cate_name|stringformat:'s' == 'Tools' %}
+                  <li><a href="/showproduct/{{cat.id}}">{{cat.product_cate_name}}</a></li>
+                {%endif%}
+                {%endif%}
+                {%endfor%} </ul></li>
+          </li>
+          <li class="nav-item">
+            <li class="dropdown">
+              <a  class="nav-link active" data-toggle="dropdown" href="#" style="color: #000000">Who we are <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+              <li><a class="nav-link" href="/Aboutus" style="color: #000000">About US </a></li>
+              <li><a class="nav-link" href="/career" style="color: #000000">Careers </a></li>
+              </ul></li></li>
+        </ul>
+      </div>
+  </section>
+{%block "content"%}
+<section>
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a href="/mamearth" target="_blank">
+        <img class="d-block w-100" src="{% static 'images/mamaearth1.jpg' %}" alt="First slide">
+      </a>
+      </div>
+      <div class="carousel-item">
+        <a href="/swissbeauty" target="_blank">
+        <img class="d-block w-100" src="{% static 'images/swiss_beauty.jpg' %}" alt="Second slide">
+      </a>
+      </div>
+      <div class="carousel-item">
+        <a href="/sugarcosmetics" target="_blank">
+        <img class="d-block w-100" src="{% static 'images/sugar_image.jpg' %}" alt="Third slide">
+      </a>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+</section>
+<br>
+<section>
+  <center><h1 style="background-image: linear-gradient(to right,#e09dd2,#c77393,#916da8)">Best Picks</h1></center>
+  <br>
+  <div class="card-deck" style="width: 100%;">
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/moisturizer/Minimalist.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{6}}">Minimalist moisturizer</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/moisturizer/Bioderma1.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{5}}">Bioderma Atoderm Creme</a></h5>
+       
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/serum/Niacinamide.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{17}}">ordinary Niacinamide</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/faceoil/nykaa_face_oil.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{2}}">Nykaa purifying Facewash</a></h5>
+       
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/all purpose gel/gel_cream_.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{17}}">Neutrogena</a></h5>
+       
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+</section>
+<section>
+  <center><h1 style="background-image: linear-gradient(to right,#e09dd2,#c77393,#916da8)">New Arrivals</h1></center>
+  <br>
+  <div class="card-deck" style="width: 100%;">
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/makeup/foundation(liquid)/Fit Me foundation.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{16}}">Fit Me Foundation</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/cream/night cream/dot&key night gel.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{13}}">Dot & Key Night cream</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/moisturizer/ordinary.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{4}}">ordinary</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/eye/shadow/swiss beauty.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{49}}">Swiss Beauty Ultimate 9</a></h5>
+        
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="{% static 'images/lip/nykaa ultra matte_.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/viewproduct/{{7}}">Nykaa Ultra Matte</a></h5>
+        
+      </div>
+    </div>
+    
+  </div>
+<br>
+<br>
+</section>
+<section>
+  <center><h1 style="background-image: linear-gradient(to right,#e09dd2,#c77393,#916da8)">Shop By Looks</h1></center>
+  <center><table height="80%" width="80%">
+    <tr><td width="500" height="500"><video width="500" height="500" autoplay muted>
+      <source src="{% static 'video/SWISS BEAUTY.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video></td>
+    <td></td>
+    <td width="500" height="500"><video width="500" height="500" autoplay muted>
+      <source src="{% static 'video/Makeup Routine With Maybelline Fit Me Range.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video></td></tr>
+  </table></center>
+</section>
+
+{%endblock%}
+  <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #787b81"
+          >
+    <section
+             class="d-flex justify-content-between p-4"
+             style="background-color:  rgba(0, 0, 0, 0.2)"
+             >
+      <!-- Left -->
+      <div class="me-5">
+        <span>Get connected with us on social networks:</span>
+        <span>instagram</span>
+      </div>
+    </section>
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold">Glam Beauty</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #c77393"
+                />
+            <p>
+              we focusing on natural and simple beauty routines, products, and ingredients. This approach celebrates and enhances individuality, promoting self-confidence and self-love.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold">Products</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #c77393"
+                />
+            <p>
+              <a href="#!" class="text-white">Policy</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Term and condition</a>
+            </p>
+            
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold">Useful links</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color:#c77393"
+                />
+            <p>
+              <a href="/career" class="text-white">Careers</a>
+            </p>
+            <p>
+              <a href="/Aboutus" class="text-white">About US</a>
+            </p>
+            
+            <p>
+              <a href="#!" class="text-white">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold">Contact</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #c77393"
+                />
+            <p><i class="fas fa-home mr-3"></i> Wagle Estate, 400604, Thane(w)</p>
+            <p><i class="fas fa-envelope mr-3"></i> glambeauty@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> </p>
+            <p><i class="fas fa-print mr-3"></i> </p>
+          </div>
+          
+        </div>
+        
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div
+         class="text-center p-3"
+         style="background-color:#c77393"
+         >
+      © 2023 Copyright:
+      <a class="text-white" href="#"
+         >glam.com</a
+        >
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+</body>
+</html>
+

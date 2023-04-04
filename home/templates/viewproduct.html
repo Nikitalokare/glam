@@ -1,0 +1,181 @@
+{%extends "home.html"%}
+{%block "content"%}
+{%load static%}
+<style>
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  outline: 2px solid rgb(0, 0, 0);
+}
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + svg {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + svg {
+  outline: 2px solid rgb(0, 0, 0);
+}</style>
+
+
+<section class="vh-95" >
+    <div class="container py-5 h-105">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <form action="/addToCart" method="post">
+                {%csrf_token%}
+                <table class="table">
+            <div class="card-body p-5 text-center">
+              <tr>
+                {% if radio|stringformat:'s' == 'monalisa' %}
+                <img src="{% static 'images/lip/ultra matte shades/monalisa1.jpg' %}" class="img-responsive" style="width:100%;height: 250px;", alt="Image">
+                {%else%}
+                <img src="{{product.product_img.url}}" class="img-responsive" style="width:100%;height: 250px;", alt="Image">
+                {%endif%}
+                </tr>
+                <b><tr><input type="hidden" name="pid" value="{{product.id}}"><center><p><a href="#!" class="text-dark">{{product.product_desc}}</a></p></b></center></tr>
+                <tr><td>Price:</td><td><p class="text-dark">{{product.product_price}}</p></td></tr>
+                {% if product.category|stringformat:'s' == 'Lipstick' %}
+                    <tr>
+              <div class="hiddenradio">
+                <td><label>
+                  <input type="radio" name="test" value="monalisa" >
+                  <img src="{% static 'images/lip/ultra matte shades/monalisa.jpg' %}" class="img-responsive" style="width:30;height: 30;", alt="Image">
+                </label></td>
+                <td>
+                <label>
+                  <input type="radio" name="test" value="M Scarlet Siren">
+                  <img src="{% static 'images/lip/ultra matte shades/M Scarlet Siren1.jpg' %}" class="img-responsive" style="width:30;height: 30;", alt="Image">
+                </label></td>
+                <td>                          
+                <label>
+                  <input type="radio" name="test" value="Cranberry Sangria">
+                  <img src="{% static 'images/lip/ultra matte shades/Cranberry Sangria1.jpg' %}" class="img-responsive" style="width:30;height: 30;", alt="Image">
+                </label>
+                </div></tr>
+                {%elif product.category|stringformat:'s' == 'Foundation(liquid)'%}
+                <tr>
+                  <div class="hiddenradio">
+                    <td colspan="2"><label>
+                      <input type="radio" name="test" value="128 warm nude" >
+                      <svg height="50" width="50">
+                        <rect x="3" y="3" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: #FAE3E3 ;"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="127 Golden Honey" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(196, 168, 137);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="130 Buff Beige" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(236, 196, 144);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="220 NAtural Beige" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(224, 182, 134);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="310 sun Beige" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(182, 139, 84);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="330 Toffee Natural Buff" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(201, 148, 100);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="238 Rich Tan Classic Ivory" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(143, 102, 76);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="115 Ivory" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(240, 200, 168);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="340 Cappucino" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(252, 205, 205);"/>
+                        
+                    </svg>
+                    </label>
+                    <label>
+                      <input type="radio" name="test" value="326 Warm Tan" >
+                      <svg height="50" width="50">
+                        <rect x="2.5" y="2.5" rx="7.5" ry="10" height="40" width="40"
+                        style="fill: rgb(128, 81, 55);"/>
+                        
+                    </svg>
+                    </label>
+                  </td></div></tr>
+                  {%else%}
+                  <input type="hidden" name="test" value="No shade" >
+                {%endif%}
+                
+                <tr><td> Quantity: </td><td><select class="form-control" name="qty">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select></td></tr>
+                <tr><td><a href="http://127.0.0.1:8000/"><button type="button" class="btn btn-primary" style="position: left;">Cancel</button></a></td>
+                <td><button type="submit" class="btn btn-primary" style="position: left;">Add to Cart</button></td>
+                </tr>
+            </div>
+        </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}

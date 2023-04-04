@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    width: 100%;
+    background-image: linear-gradient(to right,#e09dd2,#c77393,#916da8);    
+}
+.nav-link {
+    color: rgb(17, 17, 22);
+    }
+ 
+.logo{
+    display: flex;
+    width: 100%;
+}
+
+.search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+
+
+  

@@ -1,0 +1,27 @@
+{%extends "home.html"%}
+{%block "content"%}
+<br>
+<center><h2>All Products</h2></center>
+<br>
+<center>
+<table border="1">
+  <tr>
+  <th>Order date </th>
+    <th>Total Amount</th>
+    <th>Details</th>
+  </tr>
+  
+      {%for prod in myorder%}
+      
+      <tr>
+        
+        <td>{{prod.date_of_order}}</td>
+        <td>{{prod.amount}}</td>
+        <td>{{prod.details}}</td>
+        
+      </tr>
+     {%endfor%}
+    
+    </table></center>
+<br>
+{%endblock%}
